@@ -74,5 +74,5 @@ var t = rndTree(0.6);
 document.write(show(t.tree));
 document.write("<BR><BR>");
 document.write("Target: "+t.target);
-document.write("<BR><BR>");
+document.write("<BR> <BR>");
 document.write(makeXXX(t.tree,t.target));
