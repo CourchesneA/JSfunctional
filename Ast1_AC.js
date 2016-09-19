@@ -33,13 +33,14 @@ function cXXXr(ads){
    }
 }
 
-var ls = cons('v',cons('w',cons('x',cons('y',cons('z',null)))));
+/*var ls = cons('v',cons('w',cons('x',cons('y',cons('z',null)))));
 var cadr = cXXXr('ad');
 var caddr = cXXXr('add');
 
-//document.writeln("cadr: "+cadr(ls));
-//document.writeln("caddr: "+caddr(ls));
-//document.write(cXXXr("adddd")(ls));
+document.writeln("cadr: "+cadr(ls));
+document.writeln("caddr: "+caddr(ls));
+document.write(cXXXr("adddd")(ls));
+*/
 
 //---------------Question 2 ------------------
 
