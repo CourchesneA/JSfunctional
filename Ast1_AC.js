@@ -70,9 +70,15 @@ function makeXXX(tree,s){
     return null;
 }
 
-var t = rndTree(0.6);
+/*var t = rndTree(0.6);
 document.write(show(t.tree));
 document.write("<BR><BR>");
 document.write("Target: "+t.target);
-document.write("<BR> <BR>");
+document.write("<BR><BR>");
 document.write(makeXXX(t.tree,t.target));
+document.write("<BR><BR>");
+document.write(cXXXr(makeXXX(t.tree,t.target))(t.tree));
+*/
+
+//-------------Question 3------------------------------
+
