@@ -82,3 +82,15 @@ document.write(cXXXr(makeXXX(t.tree,t.target))(t.tree));
 
 //-------------Question 3------------------------------
 
+function wosh(param){
+    var ptree
+    if(param){  //check empty tree
+
+    }else{
+        //if the first char after '(' is a letter, return this a the 'a' and everything else as the 'b'
+        //using .split on the space
+    }
+}
+
+var t = rndTree(0.6);
+document.write(show(t.tree));
