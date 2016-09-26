@@ -83,14 +83,34 @@ document.write(cXXXr(makeXXX(t.tree,t.target))(t.tree));
 //-------------Question 3------------------------------
 
 function wosh(param){
-    var ptree
-    if(param){  //check empty tree
+    function getLeft(dStr,counter){
+        //this should return everything in the first parenthesis by building a string
+        var strBuilder;
 
-    }else{
-        //if the first char after '(' is a letter, return this a the 'a' and everything else as the 'b'
-        //using .split on the space
     }
-}
+    function BuildString(str,i,pStack){
+        //return the left part
+        var strConstruct;
+        var stack = pStack;
+        var character = str.charAt(i);
+        if(character==40)
+            stack++;
+        if(character==41)
+            stack--;
+        if(stack==0 && i!=0){
+            return character;
+        }
+        var strConstruct = character+BuildString(str,i+1,stack);
+    }
+    var ptree
+    if(param.isAlphaNum){
+        return param;
+    }else if(param.isNullList){
+        return null;
+    }else{
+        return cons(wosh(param.left),wosh(param.right));
+    }
 
+}
 var t = rndTree(0.6);
 document.write(show(t.tree));
