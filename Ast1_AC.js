@@ -83,27 +83,25 @@ document.write(cXXXr(makeXXX(t.tree,t.target))(t.tree));
 
 //-------------Question 3------------------------------
 
-function wosh(param){
-    function getLeft(dStr,counter){
+function wohs(param){
+    function getLeft(dStr){
         //this should return everything in the first parenthesis by building a string
-        var strBuilder;
-
-    }
-    function BuildString(str,i,pStack){
-        //return the left part
-        var strConstruct;
-        var stack = pStack;
-        var character = str.charAt(i);
-        if(character==40)
-            stack++;
-        if(character==41)
-            stack--;
-        if(stack==0 && i!=0){
-            return character;
+        function getLeftHelper(str,i,pStack){
+            var stack = pStack;
+            var character = str.charAt(i);
+            if(character=='(')
+                stack++;
+            if(character==')')
+                stack--;
+            if(stack==0 && i!=0){
+                return character;
+            }
+            var strConstruct = character+""+getLeftHelper(str,i+1,stack);
+            return strConstruct;
         }
-        var strConstruct = character+BuildString(str,i+1,stack);
+        return(BuildString(dStr,0,0));
     }
-    var ptree
+    
     if(param.isAlphaNum){
         return param;
     }else if(param.isNullList){
@@ -115,24 +113,7 @@ function wosh(param){
 }
 
 var t = rndTree(0.6);
-//document.write(show(t.tree));
-console.log("t");
-
-function BuildString(str,i,pStack){
-        //return the left part
-        var strConstruct;
-        var stack = pStack;
-        var character = str.charAt(i);
-        if(character==40)
-            stack++;
-        if(character==41)
-            stack--;
-        if(stack==0 && i!=0){
-            return character;
-        }
-        var strConstruct = character+BuildString(str,i+1,stack);
-}
-
-console.log("test");
+document.write(show(t.tree));
+console.log(wohs("(test(TEST))(not)"));
 //console.log(BuildString("((test(tt))te)(not)",0,0));
 
