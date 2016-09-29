@@ -202,19 +202,32 @@ function partition(dList){
         return buildList(cdr(list),func);
     }
 
-    function listOfLists(list,args){     //this function take as params the array arguments and return list of lists
-        function listOfListsHelper(list,args,i){    //i should start at 1
-            return cons(buildList(list,args[i]),buildList(list,args[i+1]));
+    function listOfLists(args){     //this function take as params the array arguments and return list of lists
+        function listOfListsHelper(args,i){    //i should start at 1
+            if(args[i]==undefined)
+                return null;
+            return cons(buildList(args[0],args[i]),buildList(args[0],args[i+1]));
         }
+        return listOfListsHelper(args,1);
     }
-    return (buildList(dList,arguments[1]));
+    return (listOfLists(arguments));
 }
-
+/*
 function isEven(param){
     if(param%2==0)
         return true;
     return false;
 }
+function containsA(param){
+    if(typeof(param)!="string")
+        return false;
+    if(param.charAt(0)=='a')
+        return true;
+    return false;
+}
 
-var theList = cons(2,cons(3,cons(4,null)));
-console.log(show(partition(theList,isEven)));
+var theList = cons(2,cons(3,cons(4,cons('abc',cons(9,cons('4ctrsd',cons(12,cons('atefa45r',null))))))));
+console.log(show(partition(theList,isEven,containsA)));*/
+
+
+//-----Question 5-------------
