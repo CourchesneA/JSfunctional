@@ -7,6 +7,51 @@
 *
 * 19 Septembre 2016
 */
+
+
+function cons(a,b) {
+    return function (selector) {
+        if (selector=='areyoualist?')
+            return 'yesIam';
+        return selector(a,b);
+    };
+}
+
+function car(list) {
+    function carHelper(a,b) {
+        return a;
+    }
+    return list(carHelper);
+}
+
+function cdr(list) {
+    function cdrHelper(a,b) {
+        return b;
+    }
+    return list(cdrHelper);
+}
+
+function isList(thing) {
+    if (typeof(thing)!='function')
+        return false;
+    try {
+        if (thing('areyoualist?')=='yesIam')
+        return true;
+    } catch(e) {
+    }
+    return false;
+}
+
+function show(list) {
+    var sval;
+    if (list==null)
+        sval = '()';
+    else if (isList(list))
+        sval = '('+ show(car(list)) +' '+show(cdr(list))+')';
+    else 
+        sval = String(list);
+    return sval;
+}
 //-----------Question 1---------------
 console.log("test1");
 function cXXXr(ads){
@@ -145,11 +190,31 @@ function wohs(param){
     document.write(show(wohs(display)));*/
 
 //-----Question 4----------
-function partition(list){
-    console.log(list);
-    console.log(arguments[0]);
-    console.log(arguments[1]);
-    console.log(arguments[2]);
+function partition(dList){  
+    function buildList(list,func){  //this function take as params the list and a function, returns a list where this function is true
+        if(list==null){
+            return null
+        }
+        if(func(car(list))==true){    //if current element yield true, return it in the outputlist
+            return (cons(car(list),buildList(cdr(list),func)));
+        }
+        //current element yield false, omit it
+        return buildList(cdr(list),func);
+    }
+
+    function listOfLists(list,args){     //this function take as params the array arguments and return list of lists
+        function listOfListsHelper(list,args,i){    //i should start at 1
+            return cons(buildList(list,args[i]),buildList(list,args[i+1]));
+        }
+    }
+    return (buildList(dList,arguments[1]));
 }
 
-partition("a","b","c","d");
+function isEven(param){
+    if(param%2==0)
+        return true;
+    return false;
+}
+
+var theList = cons(2,cons(3,cons(4,null)));
+console.log(show(partition(theList,isEven)));
