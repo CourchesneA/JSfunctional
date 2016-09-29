@@ -89,12 +89,13 @@ function wohs(param){
         function getLeftHelper(str,i,pStack){
             var character = str.charAt(i);
             if(pStack==0 && i!=0){
-                return character;
+                return "";
             }
             if(character=='(')
                 return character+""+getLeftHelper(str,i+1,pStack+1);
             if(character==')')
                 return character+""+getLeftHelper(str,i+1,pStack-1);
+            return character+""+getLeftHelper(str,i+1,pStack);
         }
         return(getLeftHelper(dStr,0,0));
     }
@@ -106,11 +107,12 @@ function wohs(param){
                 return i;
             }
             if(character=='(')
-                return getLeftHelper(str,i+1,pStack+1);
+                return getRightHelper(str,i+1,pStack+1);
             if(character==')')
-                return getLeftHelper(str,i+1,pStack-1);
+                return getRightHelper(str,i+1,pStack-1);
+            return getRightHelper(str,i+1,pStack);
         }
-        return(str.slice(getLeftHelper(dStr,0,0),str.length-1));
+        return(dStr.slice(getRightHelper(dStr,0,0)+1));
     }
     
     if(param.isAlphaNum){
