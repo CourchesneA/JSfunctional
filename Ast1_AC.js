@@ -71,9 +71,10 @@ function makeXXX(tree,s){
     return null;
 }
 
-/*var t = rndTree(0.6);
-document.write(show(t.tree));
-document.write("<BR><BR>");
+//var t = rndTree(0.6);
+//document.write(show(t.tree));
+//document.write("<BR><BR>");
+/*
 document.write("Target: "+t.target);
 document.write("<BR><BR>");
 document.write(makeXXX(t.tree,t.target));
@@ -85,9 +86,13 @@ document.write(cXXXr(makeXXX(t.tree,t.target))(t.tree));
 
 function wohs(param){
     function getLeft(dStr){
-        //this return everything in the first parenthesis
+        //this returns the first part of the list
         function getLeftHelper(str,i,pStack){
             var character = str.charAt(i);
+            if(character != '(' && i==0){
+                //Left part is a string, return it
+                return str.slice(0,5);
+            }
             if(pStack==0 && i!=0){
                 return "";
             }
@@ -97,77 +102,54 @@ function wohs(param){
                 return character+""+getLeftHelper(str,i+1,pStack-1);
             return character+""+getLeftHelper(str,i+1,pStack);
         }
-        return(getLeftHelper(dStr,0,0));
+        return(getLeftHelper(dStr.slice(1,dStr.length-1),0,0));
     }
+
     function getRight(dStr){
-         //this return everything in the second parenthesis
-        function getRightHelper(str,i,pStack){
-            var character = str.charAt(i);
-            if(pStack==0 && i!=0){
-                return i;
-            }
-            if(character=='(')
-                return getRightHelper(str,i+1,pStack+1);
-            if(character==')')
-                return getRightHelper(str,i+1,pStack-1);
-            return getRightHelper(str,i+1,pStack);
-        }
-        return(dStr.slice(getRightHelper(dStr,0,0)+1));
+         //this returns the second part of the list
+         slicedString = dStr.slice(1,dStr.length-1);
+       return slicedString.slice(getLeft(dStr).length+1);
     }
-    
-    if(param.isAlphaNum){
-        return param;
-    }else if(param.isNullList){
-        return null;
+
+    //The core of the function check if an element is null or a string, return it;
+    // else parse it then return is
+    var leftPart = getLeft(param);
+    var rightPart = getRight(param);
+    var leftConstruct;
+    var rightConstruct;
+    if(leftPart.charAt(0)=='('){
+        leftConstruct = wohs(leftPart);     //the left part is a list so parse it
     }else{
-        return cons(wosh(param.left),wosh(param.right));
+        leftConstruct = leftPart;   //The left part is a string so return it like it is
     }
+    if(rightPart=="()"){
+        rightConstruct = null;      //The right part is null so return null
+    }else{
+        rightConstruct = wohs(rightPart);   //The right part is a list so parse it
+    }
+    return cons(leftConstruct,rightConstruct);
 
 }
 
-//var t = rndTree(0.6);
-//var display = show(t.tree)
-//document.write(display);
-//console.log(wohs("(test(TEST))(not)"));
+    /*var t = rndTree(0.6);
+    var display = show(t.tree)
+ 
+    document.write(display);
+    document.write("<BR><BR>");
+    document.write("Left: "+getLeft(display));
+    document.write("<BR><BR>");
+    document.write("Right: "+getRight(display));
+    document.write("<BR><BR>");
+    document.write("Answer:");
+    document.write("<BR><BR>");
+    document.write(show(wohs(display)));*/
 
-//console.log(BuildString("((test(tt))te)(not)",0,0));
+//-----Question 4----------
+function partition(list){
+    console.log(list);
+    console.log(arguments[0]);
+    console.log(arguments[1]);
+    console.log(arguments[2]);
+}
 
-    function getLeft(dStr){
-        //this return everything in the first parenthesis
-        function getLeftHelper(str,i,pStack){
-            var character = str.charAt(i);
-            if(pStack==0 && i!=0){
-                return "";
-            }
-            if(character=='(')
-                return character+""+getLeftHelper(str,i+1,pStack+1);
-            if(character==')')
-                return character+""+getLeftHelper(str,i+1,pStack-1);
-            return character+""+getLeftHelper(str,i+1,pStack);
-        }
-        return(getLeftHelper(dStr,0,0));
-    }
-    function getRight(dStr){
-         //this return everything in the second parenthesis
-        function getRightHelper(str,i,pStack){
-            var character = str.charAt(i);
-            if(pStack==0 && i!=0){
-                return i;
-            }
-            if(character=='(')
-                return getRightHelper(str,i+1,pStack+1);
-            if(character==')')
-                return getRightHelper(str,i+1,pStack-1);
-            return getRightHelper(str,i+1,pStack);
-        }
-        return(dStr.slice(getRightHelper(dStr,0,0)+1));
-    }
-
-    //document.write("<BR><BR>");
-    //document.write("LEFT: "+ getLeft("((test(tt))te)(not)"));
-    var test = getLeft("((test(tt))te) ()");
-    var test2 = getRight("((test(tt))te) ()");
-    console.log(test);
-    console.log(test2);
-    //document.write("<BR><BR>");
-    //document.write("RIGHT: "+ getRight(display.slice(1,display.length-1)));
+partition("a","b","c","d");
