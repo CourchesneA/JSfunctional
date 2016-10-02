@@ -237,15 +237,15 @@ function constructAA(){
 }
 function addAA (aa, key, value){
     var ls = cons(key,value);
-    var search = getValueAA
+    var search = getValueAA(aa, key)
     if(search == null){   //if the value was not found
         return cons(ls,aa)
     }else{          //The value was found somewhere, overwrite it
         var leftPart = car(aa);
         if(car(leftPart)==key){     //This is the key we were looking for
-            return cons(cons(key,value),aa);    //TODO debug
+            return cons(cons(key,value),cdr(aa));    //TODO debug
         }else{
-            return addAA(cdr(aa),key,value);
+            return cons(leftPart,addAA(cdr(aa),key,value));
         }
     }
 }
@@ -256,14 +256,25 @@ function getValueAA (aa, key){
     if(car(leftPart) == key){       //Check if the key is the right one
             return cdr(leftPart);          //return its value
     }else{
-        return getValueAA(cdr(leftPart,key));       //If it wasnt found, recursively search the list
+        return getValueAA(cdr(aa),key);       //If it wasnt found, recursively search the list
     }
 }
 function showAA (aa){
-
+    if(!isList(aa)){
+        return "";
+    }
+    return showAA(cdr(aa))+car(car(aa)) +":"+ cdr(car(aa))+"\n";
 }
 
-var assarr = constructAA();
-var assarr1 = addAA(assarr,"first",1);
-console.log(show(assarr1));
+/*var assarr = constructAA();
+assarr = addAA(assarr,"first",1);
+assarr = addAA(assarr,"Second",2);
+assarr = addAA(assarr,"Third",3);
+assarr = addAA(assarr, "Fourth",4);
+assarr = addAA(assarr, "Fourth",2);
+//var a = getValueAA (assarr5, "first");
+//assarr5 = addAA(assarr, "Third", "This is not 3");
+console.log(showAA(assarr));
+console.log(showAA( addAA ( addAA ( constructAA () , "name" , "clark"), "age",1000)));
+*/
 
