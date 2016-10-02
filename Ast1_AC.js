@@ -231,3 +231,39 @@ console.log(show(partition(theList,isEven,containsA)));*/
 
 
 //-----Question 5-------------
+
+function constructAA(){
+    return null;
+}
+function addAA (aa, key, value){
+    var ls = cons(key,value);
+    var search = getValueAA
+    if(search == null){   //if the value was not found
+        return cons(ls,aa)
+    }else{          //The value was found somewhere, overwrite it
+        var leftPart = car(aa);
+        if(car(leftPart)==key){     //This is the key we were looking for
+            return cons(cons(key,value),aa);    //TODO debug
+        }else{
+            return addAA(cdr(aa),key,value);
+        }
+    }
+}
+function getValueAA (aa, key){
+    if(!isList(aa))     //Base case
+        return null;
+    var leftPart = car(aa);     //Store the left part of aa for optimization
+    if(car(leftPart) == key){       //Check if the key is the right one
+            return cdr(leftPart);          //return its value
+    }else{
+        return getValueAA(cdr(leftPart,key));       //If it wasnt found, recursively search the list
+    }
+}
+function showAA (aa){
+
+}
+
+var assarr = constructAA();
+var assarr1 = addAA(assarr,"first",1);
+console.log(show(assarr1));
+
